@@ -681,7 +681,7 @@ deck(Monitor *m) {
 			my += HEIGHT(c) + gappx;
 		}
 		else
-+			resize(c, m->wx + mw + gappx/ns, m->wy + gappx, m->ww - mw - (2*c->bw) - gappx*(5-ns)/2, m->wh - (2*c->bw) - 2*gappx, False);
+			resize(c, m->wx + mw + gappx/ns, m->wy + gappx, m->ww - mw - (2*c->bw) - gappx*(5-ns)/2, m->wh - (2*c->bw) - 2*gappx, False);
 }
 
 
