@@ -1,4 +1,5 @@
 /* See LICENSE file for copyright and license details. */
+#include <X11/XF86keysym.h>
 
 /* appearance */
 static const unsigned int borderpx  = 0;        /* border pixel of windows */
@@ -72,6 +73,11 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
+static const char *upvol[]            = { "pactl", "set-sink-volume", "0", "+5%", NULL };
+static const char *downvol[]          = { "pactl", "set-sink-volume", "0", "-5%", NULL };
+static const char *mutevol[]          = { "pactl", "set-sink-mute", "0", "toggle", NULL };
+static const char *brightup[]         = { "xbacklight", "-inc", "10" };
+static const char *brightdown[]       = { "xbacklight", "-dec"," 10" };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -80,19 +86,19 @@ static Key keys[] = {
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY|ShiftMask,                       XK_equal,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_minus,      incnmaster,     {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_equal,  incnmaster,     {.i = +1 } },
+	{ MODKEY,                       XK_minus,  incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY|Mod4Mask,              XK_0,      togglegaps,     {0} },
-	{ MODKEY,                       XK_space, zoom,           {0} },
+	{ MODKEY,                       XK_space,  zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_d,      setlayout,      {.v = &layouts[3]} },
-	{ MODKEY,                       XK_Return,  setlayout,      {0} },
+	{ MODKEY,                       XK_Return, setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
@@ -104,6 +110,11 @@ static Key keys[] = {
     { ShiftMask,			        XK_Print,  spawn,          SHCMD("maimpick") },
 	{ MODKEY,                       XK_o,      spawn,          {.v = termcmd } },
 	{ Mod4Mask,                     XK_l,      spawn,          SHCMD("slock") },
+	{ 0,                            XF86XK_AudioRaiseVolume,  spawn, {.v = upvol } },  
+	{ 0,                            XF86XK_AudioLowerVolume,  spawn, {.v = downvol } },
+	{ 0,                            XF86XK_AudioMute,         spawn, {.v = mutevol } },
+	{ 0,                            XF86XK_MonBrightnessUp,   spawn, {.v = brightup } },
+	{ 0,                            XF86XK_MonBrightnessDown, spawn, {.v = brightdown } },
     TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
