@@ -76,8 +76,10 @@ static const char *termcmd[]  = { "st", NULL };
 static const char *upvol[]            = { "pactl", "set-sink-volume", "0", "+5%", NULL };
 static const char *downvol[]          = { "pactl", "set-sink-volume", "0", "-5%", NULL };
 static const char *mutevol[]          = { "pactl", "set-sink-mute", "0", "toggle", NULL };
-static const char *brightup[]         = { "xbacklight", "-inc", "10" };
-static const char *brightdown[]       = { "xbacklight", "-dec"," 10" };
+static const char *backlightup[]         = { "xbacklight", "-inc", "10" };
+static const char *backlightdown[]       = { "xbacklight", "-dec"," 10" };
+static const char *brightup[]         = { "brightness", "-inc" };
+static const char *brightdown[]       = { "brightness", "-dec" };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -113,8 +115,10 @@ static Key keys[] = {
 	{ 0,                            XF86XK_AudioRaiseVolume,  spawn, {.v = upvol } },  
 	{ 0,                            XF86XK_AudioLowerVolume,  spawn, {.v = downvol } },
 	{ 0,                            XF86XK_AudioMute,         spawn, {.v = mutevol } },
-	{ 0,                            XF86XK_MonBrightnessUp,   spawn, {.v = brightup } },
-	{ 0,                            XF86XK_MonBrightnessDown, spawn, {.v = brightdown } },
+	{ 0,                            XF86XK_MonBrightnessUp,   spawn, {.v = backlightup } },
+	{ 0,                            XF86XK_MonBrightnessDown, spawn, {.v = backlightdown } },
+	{ Mod4Mask,                     XK_k,       spawn,         {.v = brightup } },
+	{ Mod4Mask,                     XK_j,       spawn,         {.v = brightdown } },
     TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
