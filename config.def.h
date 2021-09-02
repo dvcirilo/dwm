@@ -31,6 +31,7 @@ static const Rule rules[] = {
 	 */
 	/* class                    instance    title       tags mask     iscentered   isfloating   monitor */
 	{ "QjackCtl",               NULL,       NULL,          0,             0,           1,           -1 },
+	{ "Lingot",               NULL,       NULL,          0,             0,           1,           -1 },
 	{ "SimpleScreenRecorder",   NULL,       NULL,          0,             1,           1,           -1 },
 };
 
@@ -38,6 +39,7 @@ static const Rule rules[] = {
 static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
+static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
