@@ -64,6 +64,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
+static const char *termsamedir[]  = { "samedir", NULL };
 static const char *upvol[]            = { "pactl", "set-sink-volume", "0", "+5%", NULL };
 static const char *downvol[]          = { "pactl", "set-sink-volume", "0", "-5%", NULL };
 static const char *mutevol[]          = { "pactl", "set-sink-mute", "0", "toggle", NULL };
@@ -102,6 +103,7 @@ static Key keys[] = {
     { 0,                            XK_Print,  spawn,          SHCMD("maim -s | xclip -selection clipboard -t image/png") },
     { ShiftMask,			        XK_Print,  spawn,          SHCMD("maimpick") },
 	{ MODKEY,                       XK_o,      spawn,          {.v = termcmd } },
+	{ MODKEY|ShiftMask,             XK_o,      spawn,          {.v = termsamedir } },
 	{ Mod4Mask,                     XK_l,      spawn,          SHCMD("slock") },
 	{ 0,                            XF86XK_AudioRaiseVolume,  spawn, {.v = upvol } },  
 	{ 0,                            XF86XK_AudioLowerVolume,  spawn, {.v = downvol } },
