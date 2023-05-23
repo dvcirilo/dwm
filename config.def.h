@@ -31,7 +31,7 @@ static const Rule rules[] = {
 	 */
 	/* class                    instance    title       tags mask     iscentered   isfloating   monitor */
 	{ "QjackCtl",               NULL,       NULL,          0,             0,           1,           -1 },
-	{ "Lingot",               NULL,       NULL,          0,             0,           1,           -1 },
+	{ "Lingot",                 NULL,       NULL,          0,             0,           1,           -1 },
 	{ "SimpleScreenRecorder",   NULL,       NULL,          0,             1,           1,           -1 },
 };
 
@@ -68,6 +68,7 @@ static const char *termsamedir[]  = { "samedir", NULL };
 static const char *upvol[]            = { "pactl", "set-sink-volume", "0", "+5%", NULL };
 static const char *downvol[]          = { "pactl", "set-sink-volume", "0", "-5%", NULL };
 static const char *mutevol[]          = { "pactl", "set-sink-mute", "0", "toggle", NULL };
+static const char *mutemic[]          = { "pactl", "set-source-mute", "1", "toggle", NULL };
 static const char *backlightup[]         = { "xbacklight", "-inc", "10" };
 static const char *backlightdown[]       = { "xbacklight", "-dec"," 10" };
 static const char *brightup[]         = { "brightness", "-inc" };
@@ -108,6 +109,7 @@ static const Key keys[] = {
 	{ 0,                            XF86XK_AudioRaiseVolume,  spawn, {.v = upvol } },  
 	{ 0,                            XF86XK_AudioLowerVolume,  spawn, {.v = downvol } },
 	{ 0,                            XF86XK_AudioMute,         spawn, {.v = mutevol } },
+	{ 0,                            XF86XK_AudioMicMute,      spawn, {.v = mutemic } },
 	{ 0,                            XF86XK_MonBrightnessUp,   spawn, {.v = backlightup } },
 	{ 0,                            XF86XK_MonBrightnessDown, spawn, {.v = backlightdown } },
 	{ Mod4Mask,                     XK_k,       spawn,         {.v = brightup } },
