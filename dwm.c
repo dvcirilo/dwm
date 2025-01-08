@@ -730,8 +730,8 @@ deck(Monitor *m) {
 	for(i = my = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
 		if(i < m->nmaster) {
 			h = (m->wh - my) / (MIN(n, m->nmaster) - i);
-			resize(c, m->rmaster ? m->wx + m->ww - mw - gappx : m->wx,
-			       m->wy + my, mw - (2*c->bw) + (n > 1 ? gappx : 0), h - (2*c->bw), 0);
+			resize(c, m->rmaster ? m->wx + m->ww - mw - (n > m->nmaster ? gappx : 0) : m->wx,
+			       m->wy + my, mw - (2*c->bw) + (n > m->nmaster ? gappx : 0), h - (2*c->bw), 0);
 			my += HEIGHT(c);
 		}
 		else
