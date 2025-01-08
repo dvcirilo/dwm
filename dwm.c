@@ -287,6 +287,7 @@ struct Pertag {
 	unsigned int sellts[LENGTH(tags) + 1]; /* selected layouts */
 	const Layout *ltidxs[LENGTH(tags) + 1][2]; /* matrix of tags and layouts indexes  */
 	int showbars[LENGTH(tags) + 1]; /* display bar for the current tag */
+	int rmasters[LENGTH(tags) + 1]; /* right master the current tag */
 };
 
 /* compile-time check if all tags fit into an unsigned int bit array. */
@@ -693,6 +694,7 @@ createmon(void)
 		m->pertag->sellts[i] = m->sellt;
 
 		m->pertag->showbars[i] = m->showbar;
+		m->pertag->rmasters[i] = m->rmaster;
 	}
 
 	return m;
@@ -1852,7 +1854,6 @@ tile(Monitor *m)
 {
 	unsigned int i, n, h, mw, my, ty;
 	Client *c;
-
 	for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
 	if (n == 0)
 		return;
@@ -1866,8 +1867,8 @@ tile(Monitor *m)
 	for (i = my = ty = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
 		if (i < m->nmaster) {
 			h = (m->wh - my) / (MIN(n, m->nmaster) - i);
-			resize(c, m->rmaster ? m->wx + m->ww - mw - gappx : m->wx,
-			       m->wy + my, mw - (2*c->bw) + (n > 1 ? gappx : 0), h - (2*c->bw), 0);
+			resize(c, m->rmaster ? m->wx + m->ww - mw - (n > m->nmaster ? gappx : 0) : m->wx,
+			       m->wy + my, mw - (2*c->bw) + (n > m->nmaster ? gappx : 0), h - (2*c->bw), 0);
 			if (my + HEIGHT(c) < m->wh)
 				my += HEIGHT(c);
 		} else {
@@ -1905,9 +1906,9 @@ togglefloating(const Arg *arg)
 void
 togglermaster(const Arg *arg)
 {
-	selmon->rmaster = !selmon->rmaster;
+	selmon->rmaster = selmon->pertag->rmasters[selmon->pertag->curtag] = !selmon->rmaster;
 	/* now mfact represents the left factor */
-	selmon->mfact = 1.0 - selmon->mfact;
+	selmon->mfact = selmon->pertag->mfacts[selmon->pertag->curtag] = 1.0 - selmon->mfact;
 	if (selmon->lt[selmon->sellt]->arrange)
 		arrange(selmon);
 }
@@ -1955,6 +1956,7 @@ toggleview(const Arg *arg)
 		selmon->sellt = selmon->pertag->sellts[selmon->pertag->curtag];
 		selmon->lt[selmon->sellt] = selmon->pertag->ltidxs[selmon->pertag->curtag][selmon->sellt];
 		selmon->lt[selmon->sellt^1] = selmon->pertag->ltidxs[selmon->pertag->curtag][selmon->sellt^1];
+		selmon->rmaster = selmon->pertag->rmasters[selmon->pertag->curtag];
 
 		if (selmon->showbar != selmon->pertag->showbars[selmon->pertag->curtag])
 			togglebar(NULL);
@@ -2285,6 +2287,7 @@ view(const Arg *arg)
 	selmon->sellt = selmon->pertag->sellts[selmon->pertag->curtag];
 	selmon->lt[selmon->sellt] = selmon->pertag->ltidxs[selmon->pertag->curtag][selmon->sellt];
 	selmon->lt[selmon->sellt^1] = selmon->pertag->ltidxs[selmon->pertag->curtag][selmon->sellt^1];
+	selmon->rmaster = selmon->pertag->rmasters[selmon->pertag->curtag];
 
 	if (selmon->showbar != selmon->pertag->showbars[selmon->pertag->curtag])
 		togglebar(NULL);
