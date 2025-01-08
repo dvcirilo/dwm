@@ -530,7 +530,7 @@ centeredmaster(Monitor *m)
 		/* nmaster clients are stacked vertically, in the center
 		 * of the screen */
 		h = (m->wh - my) / (MIN(n, m->nmaster) - i);
-		resize(c, m->wx + mx, m->wy + my, mw - (2*c->bw),
+		resize(c, m->wx + mx - (n - m->nmaster > 1 ? gappx : 0), m->wy + my, mw - (2*c->bw) + gappx*MIN(n - m->nmaster, 2),
 		       h - (2*c->bw), 0);
 		my += HEIGHT(c);
 	} else {
