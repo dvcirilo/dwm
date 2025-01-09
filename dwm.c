@@ -301,7 +301,7 @@ void
 applydefaultlayouts()
 {
     Monitor *m;
-    int i = 0;
+    int i = 0, u = 0;
     for (m = mons; m; m = m->next) {
         if (i < LENGTH(lpm)) {
             m->lt[0] = &layouts[lpm[i]];
@@ -309,6 +309,11 @@ applydefaultlayouts()
             strncpy(m->ltsymbol, layouts[lpm[i]].symbol, sizeof m->ltsymbol);
         }
         i++;
+        for (u = 0; u <= LENGTH(tags); u++) {
+            m->pertag->ltidxs[u][0] = m->lt[0];
+            m->pertag->ltidxs[u][1] = m->lt[1];
+            m->pertag->sellts[u] = m->sellt;
+        }
     }
 }
 
