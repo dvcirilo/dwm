@@ -1,4 +1,5 @@
 *.o
 *.old
+*.bak
 config.h
 dwm
