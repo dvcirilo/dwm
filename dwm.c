@@ -2319,32 +2319,38 @@ updatewmhints(Client *c)
 void
 verttile(Monitor *m)
 {
-	unsigned int i, n, w, mh, mx, tx, th, ty;
+	unsigned int i, n, h, mh, my, ty, th;
 	Client *c;
-
 	for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
 	if (n == 0)
 		return;
 
-	if (n > m->nmaster) {
-		mh = m->nmaster ? m->wh * m->mfact : 0;
-		th = (m->wh - mh) / (n - m->nmaster);
-		ty = m->wy + mh;
-	} else {
-		th = mh = m->wh;
-		ty = m->wy;
-	}
-	for (i = mx = 0, tx = m->wx, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++) {
+	if (n > m->nmaster)
+		mh = m->nmaster
+			? m->wh * (m->rmaster ? 1.0 - m->mfact : m->mfact)
+			: 0;
+	else
+		mh = m->wh;
+	for (i = my = ty = th = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
 		if (i < m->nmaster) {
-			w = (m->ww - mx) / (MIN(n, m->nmaster) - i);
-			resize(c, m->wx + mx, m->wy, w - (2 * c->bw), mh - (2 * c->bw), 0);
-			mx += WIDTH(c);
+			h = (mh - my) / (MIN(n, m->nmaster) - i);
+			resize(c,
+                    m->wx,
+                    m->rmaster ? m->wy + m->wh - mh + my - (n > m->nmaster ? gappx : 0): m->wy + my, 
+                    m->ww - (2*c->bw),
+                    h - (2*c->bw) + (n > m->nmaster ? gappx : 0) , 0);
+			if (my + HEIGHT(c) < m->wh)
+				my += HEIGHT(c);
 		} else {
-			resize(c, tx, ty, m->ww - (2 * c->bw), th - (2 * c->bw), 0);
-			if (th != m->wh)
+			th = (m->wh - mh - ty) / (n - i);
+			resize(c, 
+                    m->wx,
+                    m->rmaster ? m->wy + ty : m->wy + mh + ty,
+			        m->ww - (2*c->bw),
+                    th - (2*c->bw), 0);
+			if (ty + HEIGHT(c) < m->wh)
 				ty += HEIGHT(c);
 		}
-	}
 }
 
 void
