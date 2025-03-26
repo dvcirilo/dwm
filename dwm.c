@@ -1950,12 +1950,12 @@ tile(Monitor *m)
 		mw = m->nmaster
 			? m->ww * (m->rmaster ? 1.0 - m->mfact : m->mfact)
 			: 0;
-	else
-		mw = m->ww;
+    else
+		mw = MIN(maxsww, m->ww);
 	for (i = my = ty = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
 		if (i < m->nmaster) {
 			h = (m->wh - my) / (MIN(n, m->nmaster) - i);
-			resize(c, m->rmaster ? m->wx + m->ww - mw - (n > m->nmaster ? gappx : 0) : m->wx,
+			resize(c, m->rmaster ? m->wx + m->ww - mw - (n > m->nmaster ? gappx : 0) : m->wx + (n > m->nmaster ? 0 : (m->ww-mw)/2),
 			       m->wy + my, mw - (2*c->bw) + (n > m->nmaster ? gappx : 0), h - (2*c->bw), 0);
 			if (my + HEIGHT(c) < m->wh)
 				my += HEIGHT(c);
