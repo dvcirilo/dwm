@@ -27,7 +27,7 @@ static const char *colors[][3]      = {
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
 /* launcher commands (They must be NULL terminated) */
-static const char* rofi[]      = { "rofi", "-show", "drun", NULL };
+static const char* rofi[]      = { "rofi", "-show", "drun", "-sidebar-mode", "-modes", "\"drun,run\"", "-location", "0", "-monitor", "-1", "-show-icons", NULL };
 
 static const Launcher launchers[] = {
    /* command       name to display */
