@@ -3,7 +3,7 @@
 
 /* appearance */
 static const unsigned int borderpx  = 0;        /* border pixel of windows */
-static const unsigned int gappx     = 10;       /* gaps between windows */
+static const unsigned int gappx     = 5;       /* gaps between windows */
 static const int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int maxsww    = 1920;     /* emulate 16:9 on ultrawide when singlewindow */
@@ -27,7 +27,7 @@ static const char *colors[][3]      = {
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
 /* launcher commands (They must be NULL terminated) */
-static const char* rofi[]      = { "rofi", "-show", "drun", "-sidebar-mode", "-modes", "\"drun,run\"", "-location", "0", "-monitor", "-1", "-show-icons", NULL };
+static const char* rofi[]      = { "rofi", "-show", "combi", NULL };
 
 static const Launcher launchers[] = {
    /* command       name to display */
@@ -44,6 +44,7 @@ static const Rule rules[] = {
 	{ "Pianoteq",               NULL,       NULL,          0,          0,               1,           -1 },
 	{ "newRPL",                 NULL,       NULL,          0,          0,               1,           -1 },
 	{ "DB48X",                  NULL,       NULL,          0,          0,               1,           -1 },
+	{ "Free42",                 NULL,       NULL,          0,          0,               1,           -1 },
 	{ "SimpleScreenRecorder",   NULL,       NULL,          0,          1,               1,           -1 }
 };
 
