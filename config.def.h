@@ -10,8 +10,8 @@ static const unsigned int maxsww    = 1920;     /* emulate 16:9 on ultrawide whe
 static const int showbar            = 1;        /* 0 means no bar */
 static const int rmaster            = 0;        /* 1 means master-area is initially on the right */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "Noto Mono:size=11:antialias=true:autohint=true", "Noto Emoji Medium:size=11:antialias=true:autohint=true" };
-static const char dmenufont[]       = "Noto Mono:size=11:antialias=true:autohint=true";
+static const char *fonts[]          = { "Noto Sans:size=11:antialias=true:autohint=true", "Noto Emoji Medium:size=11:antialias=true:autohint=true" };
+static const char dmenufont[]       = "Noto Sans:size=11:antialias=true:autohint=true";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
